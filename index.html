@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Name Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Personal portfolio: selected work, about, skills and contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: oversized condensed name on top, then a ruled index where a narrow label column sits beside wide content. */
+:root {
+  --bg: #E9EEF2;
+  --surface: #F6F8FA;
+  --fg: #101820;
+  --muted: #4F5F6B;
+  --line: #C3CED7;
+  --accent: #E2470F;
+  --accent-ink: #B93509;
+  --on-accent: #FFFFFF;
+  --f-display: 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  --f-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E141A;
+    --surface: #151D25;
+    --fg: #E6ECF1;
+    --muted: #9AABB8;
+    --line: #2A3641;
+    --accent: #FF7A45;
+    --accent-ink: #FF8F62;
+    --on-accent: #0E141A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E141A;
+  --surface: #151D25;
+  --fg: #E6ECF1;
+  --muted: #9AABB8;
+  --line: #2A3641;
+  --accent: #FF7A45;
+  --accent-ink: #FF8F62;
+  --on-accent: #0E141A;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Top bar */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.bar nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
+.bar a { text-decoration: none; }
+.bar a:hover { color: var(--accent-ink); }
+.theme-btn {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+/* Hero */
+.hero { padding-block: clamp(36px, 8vw, 88px) clamp(32px, 6vw, 64px); }
+.hero h1 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 62%;
+  font-variation-settings: 'wdth' 62;
+  font-size: clamp(4rem, 19vw, 14rem);
+  line-height: 0.84;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.hero h1 span { display: block; }
+.hero h1 .tone { color: var(--accent); }
+.hero-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 20px 48px;
+  margin-top: clamp(28px, 5vw, 56px);
+  align-items: start;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.status i {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+.intro {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.45;
+  max-width: 34em;
+  text-wrap: pretty;
+}
+
+/* Index sections */
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 20px 48px;
+  padding-block: clamp(32px, 5vw, 56px);
+  border-top: 1px solid var(--line);
+}
+.label {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-body { min-width: 0; }
+
+/* Projects */
+.projects { list-style: none; margin: 0; padding: 0; }
+.project {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 8px 28px;
+  padding: 22px 12px;
+  margin-inline: -12px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.projects li:first-child .project { padding-top: 6px; }
+.project:hover { background: var(--surface); }
+.project .year { font-family: var(--f-mono); font-size: 13px; color: var(--muted); padding-top: 8px; }
+.project h3 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  font-variation-settings: 'wdth' 75;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.project:hover h3 { color: var(--accent-ink); }
+.project p { margin: 0; color: var(--muted); }
+.project .tags {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* About */
+.about-text p { margin: 0 0 1em; max-width: 36em; text-wrap: pretty; }
+.facts { margin: 28px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px 32px; }
+.facts div { border-top: 1px solid var(--line); padding-top: 10px; }
+.facts dt { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 4px 0 0; font-weight: 500; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px 32px; }
+.skills h3 { margin: 0 0 10px; font-family: var(--f-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); }
+.skills ul { list-style: none; margin: 0; padding: 0; }
+.skills li { padding: 7px 0; border-bottom: 1px solid var(--line); }
+
+/* Contact */
+.contact-line {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-stretch: 75%;
+  font-variation-settings: 'wdth' 75;
+  font-size: clamp(1.9rem, 6.2vw, 4rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+.contact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 24px; }
+.btn {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 0;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.links { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+.links a:hover { color: var(--accent-ink); }
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .hero-meta, .section { grid-template-columns: minmax(0, 1fr); }
+  .project { grid-template-columns: 52px minmax(0, 1fr); }
+  .project p, .project .tags { grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .project { transition: none; }
+}
+</style>
+
+<!-- ============================================================
+     HOW TO EDIT THIS PAGE
+     Everything marked "EDIT" below is placeholder text.
+     Replace it with your own details, keep the tags around it.
+     ============================================================ -->
+
+<div class="wrap">
+  <header class="bar">
+    <span>Portfolio <span id="yr">2026</span></span>
+    <nav aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">Theme</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="name">
+      <!-- EDIT: your name, split across two lines -->
+      <h1 id="name"><span>Your</span><span class="tone">Name</span></h1>
+      <div class="hero-meta">
+        <!-- EDIT: your availability -->
+        <div class="status"><i aria-hidden="true"></i> Open to new projects</div>
+        <!-- EDIT: one or two sentences about what you do -->
+        <p class="intro">I design and build clear, fast websites for small businesses and creative teams. This is where I keep my best work.</p>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-h">
+      <h2 class="label" id="work-h">Selected work</h2>
+      <div class="section-body">
+        <!-- EDIT: replace each sample project. Change href="#" to the link of the real project. -->
+        <ul class="projects">
+          <li>
+            <a class="project" href="#">
+              <span class="year">2026</span>
+              <h3>Harbor Coffee Roasters</h3>
+              <p>A brand website with an online shop for a small roastery. Orders went up 40% in the first quarter after launch.</p>
+              <span class="tags"><span>Web design</span><span>Development</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="project" href="#">
+              <span class="year">2025</span>
+              <h3>Kite Budget</h3>
+              <p>A mobile app that helps students track weekly spending. I led research, interface design and the prototype.</p>
+              <span class="tags"><span>App design</span><span>Research</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="project" href="#">
+              <span class="year">2025</span>
+              <h3>Field Notes Zine</h3>
+              <p>A photo and writing site for a travel collective, with a layout that reads like a printed zine.</p>
+              <span class="tags"><span>Editorial</span><span>Front-end</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="project" href="#">
+              <span class="year">2024</span>
+              <h3>Open Shelf Catalog</h3>
+              <p>A redesign of a community library catalog so people can find and reserve books in three taps.</p>
+              <span class="tags"><span>UX</span><span>Prototype</span></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-h">
+      <h2 class="label" id="about-h">About</h2>
+      <div class="section-body">
+        <div class="about-text">
+          <!-- EDIT: your story in two short paragraphs -->
+          <p>I started out making posters for school events and kept going. Today I work with clients on websites and apps, from the first sketch to the launch.</p>
+          <p>I care about readable type, simple navigation and pages that load quickly on a phone. When a project ends, I hand over files that are easy to keep updating.</p>
+        </div>
+        <!-- EDIT: your facts -->
+        <dl class="facts">
+          <div><dt>Based in</dt><dd>Your city, Country</dd></div>
+          <div><dt>Experience</dt><dd>3 years</dd></div>
+          <div><dt>Languages</dt><dd>English, Filipino</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-h">
+      <h2 class="label" id="skills-h">Skills</h2>
+      <div class="section-body">
+        <!-- EDIT: list what you actually do -->
+        <div class="skills">
+          <div>
+            <h3>Design</h3>
+            <ul><li>Brand identity</li><li>Interface design</li><li>Prototyping</li></ul>
+          </div>
+          <div>
+            <h3>Build</h3>
+            <ul><li>HTML and CSS</li><li>JavaScript</li><li>Responsive layouts</li></ul>
+          </div>
+          <div>
+            <h3>Tools</h3>
+            <ul><li>Figma</li><li>Photoshop</li><li>GitHub</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-h">
+      <h2 class="label" id="contact-h">Contact</h2>
+      <div class="section-body">
+        <!-- EDIT: your real email, here and in the two places below -->
+        <p class="contact-line" id="email">hello@yourname.com</p>
+        <div class="contact-actions">
+          <button class="btn" id="copyBtn" type="button">Copy email</button>
+          <!-- EDIT: replace each # with your profile link -->
+          <div class="links">
+            <a href="#" rel="noopener">LinkedIn</a>
+            <a href="#" rel="noopener">GitHub</a>
+            <a href="#" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; <span id="yr2">2026</span> Your Name</span>
+    <a href="#name">Back to top</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var y = String(new Date().getFullYear());
+  var a = document.getElementById('yr'), b = document.getElementById('yr2');
+  if (a) a.textContent = y;
+  if (b) b.textContent = y;
+
+  try {
+    var saved = localStorage.getItem('portfolio-theme');
+    if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  } catch (e) {}
+
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var current = root.getAttribute('data-theme');
+    if (!current) current = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('portfolio-theme', next); } catch (e) {}
+  });
+
+  var copyBtn = document.getElementById('copyBtn');
+  copyBtn.addEventListener('click', function () {
+    var el = document.getElementById('email');
+    var text = el.textContent.trim();
+    function done() {
+      copyBtn.textContent = 'Copied';
+      setTimeout(function () { copyBtn.textContent = 'Copy email'; }, 1600);
+    }
+    function fallback() {
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      copyBtn.textContent = 'Press Ctrl+C';
+      setTimeout(function () { copyBtn.textContent = 'Copy email'; }, 2400);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+</script>
+
+</html>
